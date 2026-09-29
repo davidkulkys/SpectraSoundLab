@@ -1,42 +1,47 @@
-# SpectraSoundLab - Data Model
+# Data Model v3
 
-## Firestore
+## Firestore collections
 
-### projects
-```ts
+### factory_batches
 {
-  id: string
-  userId: string
-  briefing: string
-  genre: 'lo-fi' | 'indie-pop' | 'mpb-moderna' | 'trap' | 'phonk' | 'cinematic' | 'eletronica' | 'bossa'
-  bpm: number // 60-180
-  key: 'C' | 'C#' | 'D' | 'D#' | 'E' | 'F' | 'F#' | 'G' | 'G#' | 'A' | 'A#' | 'B'
-  scale: 'maior' | 'menor' | 'dorian' | 'mixolydian'
-  mood: 'nostalgico' | 'euforico' | 'sombrio' | 'alegre' | 'melancolico' | 'energetico'
-  energy: number // 1-10
-  instruments: string[] // piano, rhodes, synth-analogico, 808, strings, guitarra, voz
-  duration: '30s' | '60s' | '90s' | '120s' | '180s' | 'full'
-  structure: 'intro-verse-chorus' | 'loop' | 'build-drop' | 'a-b-a'
-  hasLyrics: boolean
-  lyricsTheme?: string
-  lyricsLang?: 'pt-BR' | 'en' | 'es'
-  voice?: 'feminina-suave' | 'masculina-grave' | 'masculina-falsete' | 'coral'
-  imageUrl?: string
-  videoUrl?: string
-  audioUrl?: string
+  id: string,
+  genre: string,
+  totalRequested: number,
+  totalGenerated: number,
+  status: 'running' | 'done' | 'error',
+  costMode: 'free-first',
   createdAt: Timestamp
 }
-```
 
-### generations
-```ts
+### tracks (opcional, para indexar a base)
 {
-  id: string
-  projectId: string
-  promptJson: { interpreted_mood, music_prompt, negative_prompt, structure, lyrics_prompt }
-  audioUrl?: string
-  stems?: { drums, bass, melody, vocal }
-  status: 'generating' | 'ready' | 'error'
-  createdAt: Timestamp
+  id: "ssl-lofi-001",
+  genre: "lo-fi",
+  bpm: 85,
+  key: "A minor",
+  duration: 120,
+  filePath: "/music-base/lo-fi/ssl-lofi-001.mp3",
+  jsonPath: "/music-base/lo-fi/ssl-lofi-001.json",
+  model: "ace-step-1.5:free",
+  license: "royalty-free, ECAD-free, commercial use",
+  hash: "sha256...",
+  generatedAt: Timestamp
 }
-```
+
+## Estrutura de pastas Storage
+
+/music-base/{genre}/{id}.mp3
+/music-base/{genre}/{id}.json
+
+JSON exemplo:
+{
+  "id": "ssl-lofi-001",
+  "genre": "lo-fi",
+  "bpm": 85,
+  "prompt": "royalty-free lo-fi 85bpm A minor rhodes vinyl crackle, original composition",
+  "model": "ace-step/ace-step-1.5:free",
+  "license": "royalty-free, ECAD-free, commercial use allowed, no author rights",
+  "generated_at": "2026-09-29T12:00:00Z",
+  "hash": "abc123...",
+  "owner": "SpectraSoundLab"
+}

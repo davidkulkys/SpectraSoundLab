@@ -1,27 +1,27 @@
-# SpectraSoundLab - Arquitetura
+# SpectraSoundLab v3 - Arquitetura Fábrica
 
-## 3 Camadas
+## Fluxo Fábrica
 
-1. **CAPTURE (Frontend - app/page.tsx)**
-   - Tabs: Texto, Imagem (moodboard), Vídeo (20s), Áudio (humming)
-   - Grid de parâmetros: genre, bpm 60-180, key, scale, mood, energy 1-10, instruments[], duration, structure, hasLyrics, lyricsTheme, voice
-   - State: projectDraft (tipo Project)
+1. **FÁBRICA (app/factory/page.tsx)**
+   - UI: Escolhe estilo, quantidade (ex: 200 lo-fi), BPM range, duração padrão (120s)
+   - Botão "Gerar Lote"
 
-2. **INTERPRET (Function /functions/interpret.ts + /lib/gemini.ts)**
-   - Recebe projectDraft + arquivos
-   - Chama Gemini 1.5 Flash com prompt fixo (ver 06-PROMPT-ENGINE.md)
-   - Retorna JSON: {interpreted_mood, music_prompt (30 palavras EN para Stable Audio), negative_prompt, structure[], lyrics_prompt}
+2. **MOTOR DUPLO com prioridade custo (lib/factory-router.ts)**
+   - Motor A GRÁTIS PRIMEIRO (via OpenRouter / Teamorouter):
+     - ace-step/ace-step-1.5:free (MIT, chinês, custo 0)
+     - yue/yue-7b:free
+     - mubert/mubert-api (royalty-free comercial)
+   - Motor B PAGO (fallback se A falhar):
+     - stability/stable-audio-2.5
 
-3. **GENERATE (Function /functions/generate.ts)**
-   - Recebe music_prompt
-   - Chama Stable Audio API POST /v2/generation
-   - Salva em Firestore `generations` com status generating
-   - Polling a cada 5s até audioUrl pronto
-   - Retorna audioUrl + stems
+3. **ARMAZENAMENTO**
+   - Firebase Storage ou S3 local:
+     /music-base/
+       /lo-fi/ssl-lofi-001.mp3 + ssl-lofi-001.json
+       /mpb-moderna/ssl-mpb-001.mp3 + json
+   - Cada .json é certificado ECAD-free: model, prompt, hash, generated_at, license
 
-4. **PLAYER + LIBRARY**
-   - Player.tsx com 3 estados: empty, loading (waveform animada), ready (play, download WAV/MP3/Stems, Variação, Estender 30s)
-   - Rota /library lista generations do user
+4. **DISTRIBUIÇÃO**
+   - Outro App (SpectraPlayer) lista pastas e permite download. Não gera.
 
-## Regra de Ouro
-NUNCA reescreva arquivo com build verde. Apenas edite o que a etapa permite.
+Regra de ouro: Sempre gerar .mp3 + .json irmão. Nunca gerar sem certificado.

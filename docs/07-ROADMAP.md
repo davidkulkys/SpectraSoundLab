@@ -1,19 +1,13 @@
-# SpectraSoundLab - Roadmap Linear
+# Roadmap v3 - Fábrica
 
-## MVP - 3 semanas
-- [ ] Etapa 0: Blueprint + Docs (Prompt 0) - BUILD VERDE
-- [ ] Etapa 1: Fundação Firebase (Prompt 1)
-- [ ] Etapa 2: UI Parâmetros (Prompt 2)
-- [ ] Etapa 3: Interprete Gemini (Prompt 3)
-- [ ] Etapa 4: Gerador Stable Audio (Prompt 4)
-- [ ] Etapa 5: Biblioteca + Deploy (Prompt 5)
+## MVP Fábrica (2 semanas)
+- [x] Etapa 0: Bootstrap + Docs (feito)
+- [ ] Etapa 1: Tela Factory (app/factory/page.tsx) com seletor de estilo e quantidade
+- [ ] Etapa 2: lib/factory-router.ts com dual engine free-first via OpenRouter
+- [ ] Etapa 3: lib/factory.ts que gera lote e salva /music-base/{genre}/mp3+json
+- [ ] Etapa 4: Teste gerar 10 faixas lo-fi com ACE-Step free
 
-## V1 - 8 a 12 semanas
-- [ ] Humming -> MIDI (Basic Pitch)
-- [ ] Estender 30s e Variação
-- [ ] Integração ElevenLabs voz
-
-## V2 - Comercial
-- [ ] Suno v5.5 full songs
-- [ ] Plano de assinatura
-- [ ] Masterização LUFS
+## V1 Base Completa
+- [ ] Gerar 200 por estilo (1600 faixas)
+- [ ] Painel de custo: quanto foi grátis vs pago
+- [ ] Export ZIP por estilo para cliente comercial baixar
