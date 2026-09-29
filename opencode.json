@@ -1,0 +1,7 @@
+{
+  "instructions": ["AGENTS.md", "docs/00-VISAO.md", "docs/02-ARCHITECTURE.md", "docs/03-DATA-MODEL.md"],
+  "permission": {
+    "edit": ["app/*", "components/*", "lib/*", "functions/*", "docs/*", ".ai/*"],
+    "deny": []
+  }
+}

@@ -1,0 +1,5 @@
+You are working on SpectraSoundLab.
+Always read /docs/00-VISAO.md, /docs/02-ARCHITECTURE.md and /docs/03-DATA-MODEL.md first.
+Stack is locked: Next.js 14 + Firebase (see /docs/01-STACK.md).
+Never rewrite a file that already has green build. Only edit allowed files for current step (see /docs/07-ROADMAP.md).
+Follow roadmap linearly. Run build after each change.
